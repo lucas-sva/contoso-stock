@@ -76,7 +76,7 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
 
 - [x] **Parte I: Análise Estratégica**
     - [x] Cap 1: Analisando Domínios de Negócio (Mapeamento de Subdomínios)
-    - [ ] Cap 2: Descobrindo Conhecimento de Domínio (Linguagem Ubíqua)
+    - [x] Cap 2: Descobrindo Conhecimento de Domínio (Linguagem Ubíqua)
     - [ ] Cap 3: Gerenciando a Complexidade (Bounded Contexts)
     - [ ] Cap 4: Context Mapping
   

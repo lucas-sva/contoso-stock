@@ -2,14 +2,18 @@ using ContosoStock.Domain.Fulfillment.Models;
 
 namespace ContosoStock.Domain.Fulfillment.Services;
 
-public class AllocationService
+public static class AllocationService
 {
-    public string DeterminateBestWarehouse(string sku, string zipCode, IEnumerable<Warehouse> availableWarehouses)
+    public static string Allocate(string sku, string zipCode, IEnumerable<DistributionCenter> cds)
     {
-        var warehouse = availableWarehouses
-        .FirstOrDefault(wh => wh.IsActive && zipCode.StartsWith(GetRegionPrefix(wh.Region)));
-        return warehouse?.Id ?? "CENTRAL-DISTRIBUTION-01";
+        var selectCd = cds.FirstOrDefault(cd => cd.IsActive);
+        return selectCd?.Id ?? "CD-MATRIZ";
     }
 
-    private static string GetRegionPrefix(string region) => region == "Southeast" ? "01" : "99";
+    public static bool ReserveLot(StockLot lot, int quantityRequested)
+    {
+        if (lot.Quantity < quantityRequested) return false;
+        Console.WriteLine($"[log] Lote {lot.Id} reservado com sucesso");    
+        return true;
+    }
 }
