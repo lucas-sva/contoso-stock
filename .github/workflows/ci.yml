@@ -13,12 +13,11 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Build & Test
-        run: |
-          if ls *.sln 1> /dev/null 2>&1 || ls src/**/*.csproj 1> /dev/null 2>&1; then
-            dotnet restore
-            dotnet build --configuration Release
-            dotnet test --no-build
-          else
-            echo "Nenhum projeto .NET encontrado para build."
-          fi
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal
