@@ -20,9 +20,11 @@
       "extensions": [
         "ms-dotnettools.csdevkit",
         "ms-python.python",
-        "mhutchie.git-graph"
+        "mhutchie.git-graph",
+        "nmartin.nsubstitute-complete"
       ]
     }
   },
+  "postCreateCommand": "dotnet restore",
   "remoteUser": "vscode"
 }
