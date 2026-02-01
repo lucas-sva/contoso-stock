@@ -1,0 +1,16 @@
+# .NET
+bin/
+obj/
+out/
+.vscode/
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS
+.DS_Store
+Thumbs.db
+
+# DevContainer
+.devcontainer/postCreateCommand.sh # (Opcional se você tiver scripts)
