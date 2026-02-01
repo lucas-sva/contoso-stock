@@ -1,0 +1,15 @@
+/workspaces/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.AssemblyInfoInputs.cache
+/workspaces/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.AssemblyInfo.cs
+/workspaces/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.csproj.CoreCompileInputs.cache
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/bin/Debug/net10.0/ContosoStock.Domain.deps.json
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/bin/Debug/net10.0/ContosoStock.Domain.dll
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/bin/Debug/net10.0/ContosoStock.Domain.pdb
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.AssemblyInfoInputs.cache
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.AssemblyInfo.cs
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.csproj.CoreCompileInputs.cache
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.dll
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/refint/ContosoStock.Domain.dll
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ContosoStock.Domain.pdb
+/IdeaProjects/contoso-stock/src/ContosoStock.Domain/obj/Debug/net10.0/ref/ContosoStock.Domain.dll

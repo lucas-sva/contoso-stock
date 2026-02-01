@@ -1,0 +1,28 @@
+{
+  "name": ".NET 10",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:10.0",
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "openssh-server,openjdk-25-jre"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+          "path": "/bin/bash",
+          "icon": "terminal-bash"
+          }
+        }
+      },
+      "extensions": [
+        "ms-dotnettools.csdevkit",
+        "ms-python.python",
+        "mhutchie.git-graph"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}
