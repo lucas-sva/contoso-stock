@@ -6,11 +6,3 @@ public record DistributionCenter(
     string Region,
     bool IsActive
 );
-
-public record StockLot (
-    string Id,
-    string Sku,
-    int Quantity,
-    DateTime ExpirationDate,
-    bool IsFragile
-);
