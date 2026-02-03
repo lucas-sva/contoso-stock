@@ -1,18 +1,17 @@
 namespace ContosoStock.Domain.Fulfillment.Models;
 
-public record StockLot(string Id, string Sku, int Quantity, DateTime ExpirationDate, bool IsFragile)
+public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime expirationDate, bool isFragile)
 {
-    public string Id { get; init; } = Id;
-    public string Sku { get; init; } = Sku;
-    public int Quantity { get; private set; } = Quantity; // Permitimos alteração interna
-    public DateTime ExpirationDate { get; init; } = ExpirationDate;
-    public bool IsFragile { get; init; } = IsFragile;
+    public Guid Id { get; } = id;
+    public Sku Sku { get; } = sku;
+    public ZipCode ZipCode { get; } =  zipCode;
+    private int Quantity { get; set; } = quantity;
+    private DateTime ExpirationDate { get; } = expirationDate;
+    private bool IsFragile { get; } = isFragile;
 
-    private bool IsExpired() => ExpirationDate <= DateTime.Now;
-    
     public bool Reserve(int quantityRequested, bool handleFragile = false)
     {
-        if (IsExpired()) return false;
+        if (ExpirationDate <= DateTime.Now) return false;
         if (IsFragile && !handleFragile) return false;
         if (Quantity < quantityRequested) return false;
 

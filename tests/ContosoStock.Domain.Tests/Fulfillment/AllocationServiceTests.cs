@@ -16,7 +16,7 @@ public class AllocationServiceTests
         };
         
         // Act
-        var result = AllocationService.Allocate(cds);
+        var result = AllocationService.Allocate(cds, new ZipCode("01525-000"));
         
         // Assert
         Assert.Equal("CD-SP-01", result);
@@ -26,12 +26,7 @@ public class AllocationServiceTests
     public void ReserveLot_ShouldReturnTrue_WhenQuantityIsAvailable()
     {
         // Arrange
-        var lot = new StockLot(
-            "LOT-2026",
-            "SKU-99",
-            100,
-            DateTime.Now.AddDays(10),
-            false);
+        var lot = new StockLot(Guid.NewGuid(), new Sku("0001"), new ZipCode("01525-000"), 100, DateTime.Now.AddDays(10), false);
         
         // Act
         var result = lot.Reserve(50);

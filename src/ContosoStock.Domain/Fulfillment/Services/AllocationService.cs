@@ -7,15 +7,15 @@ public class AllocationService(ISalesIntegration salesIntegration)
 {
     private readonly ISalesIntegration _salesIntegration = salesIntegration;
 
-    public static string Allocate(IEnumerable<DistributionCenter> cds)
+    public static string Allocate(IEnumerable<DistributionCenter> cds, ZipCode zipCode)
     {
         var selectCd = cds.FirstOrDefault(cd => cd.IsActive);
         return selectCd?.Id ?? "CD-MATRIZ";
     }
 
-    public void ProcessOrderFulfillment(string saleId, StockLot lot, IEnumerable<DistributionCenter> cds, int quantity)
+    public void ProcessOrderFulfillment(string saleId, StockLot lot, IEnumerable<DistributionCenter> cds, ZipCode zipCode, int quantity)
     {
-        var targetCd = Allocate(cds);
+        var targetCd = Allocate(cds, zipCode);
         
         if(!lot.Reserve(quantity))
             throw new InvalidOperationException($"Não foi possível reservar o lote {lot.Id}");

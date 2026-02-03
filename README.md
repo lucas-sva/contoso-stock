@@ -84,7 +84,7 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
 
 - [ ] **Parte II: Design Tático**
     - [x] Cap 5: Implementando a Lógica de Negócio (Patterns: Transaction Script, Domain Model)
-    - [ ] Cap 6: Combatendo a Complexidade (Value Objects & Entities)
+    - [x] Cap 6: Combatendo a Complexidade (Value Objects & Entities)
     - [ ] Cap 7: Modelando Consistência (Aggregates)
     - [ ] Cap 8: Modelando o Tempo (Domain Events)
 
@@ -98,7 +98,7 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
 - [ ] **Parte IV: Contexto e Dados**
     - [ ] Cap 12 a 16: Microservices e Modernização
   
-Veja as [issues em aberto](https://github.com/lucas-sva/contoso-stock/issues) para uma lista completa de funcionalidades propostas.
+Veja as [issues](https://github.com/lucas-sva/contoso-stock/issues) para uma lista completa de funcionalidades propostas.
 
 <br />
 
