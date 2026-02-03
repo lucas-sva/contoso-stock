@@ -24,6 +24,6 @@ public class AllocationIntegrationTests
         sut.ProcessOrderFulfillment("001", lot, cds, lot.ZipCode, 5);
         
         // Assert
-        mockSales.Received(1).RequestStockReservation("VENDA-123", lot.Id, "CD-01", 5);
+        mockSales.Received(1).RequestStockReservation("001", lot.Id, cds[0].Id, 5);
     }
 }
