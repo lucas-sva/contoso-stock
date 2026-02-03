@@ -7,24 +7,20 @@ public class AllocationService(ISalesIntegration salesIntegration)
 {
     private readonly ISalesIntegration _salesIntegration = salesIntegration;
 
-    public static string Allocate(string sku, string zipCode, IEnumerable<DistributionCenter> cds)
+    public static string Allocate(IEnumerable<DistributionCenter> cds)
     {
         var selectCd = cds.FirstOrDefault(cd => cd.IsActive);
         return selectCd?.Id ?? "CD-MATRIZ";
     }
 
-    public static bool ReserveLot(StockLot lot, int quantityRequested)
+    public void ProcessOrderFulfillment(string saleId, StockLot lot, IEnumerable<DistributionCenter> cds, int quantity)
     {
-        if (lot.Quantity < quantityRequested) return false;
-        Console.WriteLine($"[log] Lote {lot.Id} reservado com sucesso");    
-        return true;
-    }
-
-    public void ProcessOrderFulfillment(string saleId, string sku, int quantity, IEnumerable<DistributionCenter> cds)
-    {
-        var targetCd = Allocate(sku, "01000", cds);
+        var targetCd = Allocate(cds);
         
-        var isAuthorized = _salesIntegration.RequestStockReservation(saleId, sku, quantity, targetCd);
+        if(!lot.Reserve(quantity))
+            throw new InvalidOperationException($"Não foi possível reservar o lote {lot.Id}");
+        
+        var isAuthorized = _salesIntegration.RequestStockReservation(saleId, lot.Id, targetCd, quantity);
         
         if (isAuthorized)
             Console.WriteLine($"[log] Alocação confirmada para o pedido {saleId}");

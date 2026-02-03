@@ -1,3 +1,5 @@
+using ContosoStock.Domain.Fulfillment.Models;
+
 namespace ContosoStock.Domain.Fulfillment.ACL;
 
 /// <summary>
@@ -6,5 +8,5 @@ namespace ContosoStock.Domain.Fulfillment.ACL;
 /// </summary>
 public interface ISalesIntegration
 {
-    bool RequestStockReservation(string saleId, string sku, int quantity, string distributionCenterId);
+    bool RequestStockReservation(string saleId, string lotId, string distributionCenterId, int quantity);
 }

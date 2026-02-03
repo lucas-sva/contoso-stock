@@ -83,7 +83,10 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
 <span></spam>
 
 - [ ] **Parte II: Design Tático**
-    - [ ] Cap 5 a 8: Agregados, Entidades e Value Objects
+    - [x] Cap 5: Implementando a Lógica de Negócio (Patterns: Transaction Script, Domain Model)
+    - [ ] Cap 6: Combatendo a Complexidade (Value Objects & Entities)
+    - [ ] Cap 7: Modelando Consistência (Aggregates)
+    - [ ] Cap 8: Modelando o Tempo (Domain Events)
 
 <span></spam>
 

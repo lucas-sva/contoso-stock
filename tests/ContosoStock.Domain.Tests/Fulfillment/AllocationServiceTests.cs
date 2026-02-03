@@ -9,8 +9,6 @@ public class AllocationServiceTests
     public void Allocate_ShouldReturnCdEast_WhenZipCodeStartsWith01()
     {
         // Arrange
-        const string sku = "GELADEIRA-LUXO-01";
-        const string zipCode = "01000-000";
         var cds = new List<DistributionCenter>
         {
             new("CD-SP-01", "CD São Paulo", "Southeast", true),
@@ -18,7 +16,7 @@ public class AllocationServiceTests
         };
         
         // Act
-        var result = AllocationService.Allocate(sku, zipCode, cds);
+        var result = AllocationService.Allocate(cds);
         
         // Assert
         Assert.Equal("CD-SP-01", result);
@@ -36,7 +34,7 @@ public class AllocationServiceTests
             false);
         
         // Act
-        var result = AllocationService.ReserveLot(lot, 50);
+        var result = lot.Reserve(50);
         
         // Assert
         Assert.True(result);
