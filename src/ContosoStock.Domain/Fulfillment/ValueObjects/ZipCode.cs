@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace ContosoStock.Domain.Fulfillment.Models;
+namespace ContosoStock.Domain.Fulfillment.ValueObjects;
 
 public partial record ZipCode
 {
@@ -13,6 +13,8 @@ public partial record ZipCode
         
         Value = value;
     }
+    
+    public override string ToString() => Value;
 
     private static bool IsValid(string value)
     {

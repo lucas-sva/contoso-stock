@@ -1,4 +1,4 @@
-namespace ContosoStock.Domain.Fulfillment.Models;
+namespace ContosoStock.Domain.Fulfillment.ValueObjects;
 
 public record Sku
 {

@@ -1,7 +1,8 @@
 using ContosoStock.Domain.Fulfillment.Models;
 using ContosoStock.Domain.Fulfillment.Services;
+using ContosoStock.Domain.Fulfillment.ValueObjects;
 
-namespace ContosoStock.Domain.Tests.Fulfillment;
+namespace ContosoStock.Domain.Tests.Fulfillment.Services;
 
 public class AllocationServiceTests
 {
@@ -23,15 +24,12 @@ public class AllocationServiceTests
     }
 
     [Fact]
-    public void ReserveLot_ShouldReturnTrue_WhenQuantityIsAvailable()
+    public void ReserveLot_DeveRetornarFalse_QuandoNaoHouverQuantidadeDisponivel()
     {
         // Arrange
         var lot = new StockLot(Guid.NewGuid(), new Sku("0001"), new ZipCode("01525-000"), 100, DateTime.Now.AddDays(10), false);
         
-        // Act
-        var result = lot.Reserve(50);
-        
         // Assert
-        Assert.True(result);
+        Assert.False(lot.Reserve(101).IsSuccess);
     }
 }

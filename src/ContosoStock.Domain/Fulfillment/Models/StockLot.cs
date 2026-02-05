@@ -1,5 +1,13 @@
+using ContosoStock.Domain.Fulfillment.ValueObjects;
+using ContosoStock.Domain.Shared;
+
 namespace ContosoStock.Domain.Fulfillment.Models;
 
+/// <summary>
+/// Aggregate Root que representa um lote físico de produtos.
+/// Garante a invariante de que o saldo nunca seja negativo e que 
+/// lotes vencidos não sejam reservados.
+/// </summary>
 public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime expirationDate, bool isFragile)
 {
     public Guid Id { get; } = id;
@@ -8,14 +16,27 @@ public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime 
     private int Quantity { get; set; } = quantity;
     private DateTime ExpirationDate { get; } = expirationDate;
     private bool IsFragile { get; } = isFragile;
+    private long Version { get; set; }
 
-    public bool Reserve(int quantityRequested, bool handleFragile = false)
+    public Result Reserve(int quantityRequested, bool handleFragile = false)
     {
-        if (ExpirationDate <= DateTime.Now) return false;
-        if (IsFragile && !handleFragile) return false;
-        if (Quantity < quantityRequested) return false;
+        if (ExpirationDate <= DateTime.Now)
+            return Result.Failure("Lote vencido");
+        
+        if (IsFragile && !handleFragile)
+            return Result.Failure("Requer manuseio especial");
+
+        if (Quantity < quantityRequested)
+            return Result.Failure("Saldo insuficiente");
 
         Quantity -= quantityRequested;
-        return true;
+        Version++;
+        return Result.Success();
+    }
+
+    public void Release(int quantityToRelease)
+    {
+        Quantity += quantityToRelease;
+        Version++;
     }
 }
