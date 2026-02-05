@@ -86,7 +86,7 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
     - [x] Cap 5: Implementando a Lógica de Negócio (Patterns: Transaction Script, Domain Model)
     - [x] Cap 6: Combatendo a Complexidade (Value Objects & Entities)
     - [x] Cap 7: Modelando Consistência (Aggregates)
-    - [ ] Cap 8: Modelando o Tempo (Domain Events)
+    - [x] Cap 8: Modelando o Tempo (Domain Events)
 
 <span></spam>
 

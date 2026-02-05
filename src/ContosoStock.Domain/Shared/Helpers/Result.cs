@@ -1,4 +1,4 @@
-namespace ContosoStock.Domain.Shared;
+namespace ContosoStock.Domain.Shared.Helpers;
 
 public class Result(bool isSuccess, string error)
 {

@@ -1,5 +1,8 @@
+using ContosoStock.Domain.Fulfillment.Events;
 using ContosoStock.Domain.Fulfillment.ValueObjects;
 using ContosoStock.Domain.Shared;
+using ContosoStock.Domain.Shared.BuildingBlocks.Base;
+using ContosoStock.Domain.Shared.Helpers;
 
 namespace ContosoStock.Domain.Fulfillment.Models;
 
@@ -8,7 +11,7 @@ namespace ContosoStock.Domain.Fulfillment.Models;
 /// Garante a invariante de que o saldo nunca seja negativo e que 
 /// lotes vencidos não sejam reservados.
 /// </summary>
-public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime expirationDate, bool isFragile)
+public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime expirationDate, bool isFragile) : AggregateRoot
 {
     public Guid Id { get; } = id;
     public Sku Sku { get; } = sku;
@@ -31,6 +34,9 @@ public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime 
 
         Quantity -= quantityRequested;
         Version++;
+        
+        RaiseDomainEvent(new StockReservedEvent(Id, Sku, quantityRequested));
+        
         return Result.Success();
     }
 
