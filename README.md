@@ -74,24 +74,26 @@ Para rodar o projeto localmente e contribuir, siga os passos abaixo. Recomendamo
 
 O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Khononov:
 
-- [x] **Parte I: Análise Estratégica**
-    - [x] Cap 1: Analisando Domínios de Negócio (Mapeamento de Subdomínios)
-    - [x] Cap 2: Descobrindo Conhecimento de Domínio (Linguagem Ubíqua)
+- [x] **Parte I: Design Estratégico**
+    - [x] Cap 1: Analisando Domínios de Negócio (Strategic Mapping)
+    - [x] Cap 2: Descobrindo Conhecimento de Domínio (Ubiquitous Language)
     - [x] Cap 3: Gerenciando a Complexidade (Bounded Contexts)
     - [x] Cap 4: Context Mapping
   
 <span></spam>
 
-- [ ] **Parte II: Design Tático**
-    - [x] Cap 5: Implementando a Lógica de Negócio (Patterns: Transaction Script, Domain Model)
+- [x] **Parte II: Design Tático**
+    - [x] Cap 5: Implementando a Lógica de Negócio (Business Logic Implementation)
     - [x] Cap 6: Combatendo a Complexidade (Value Objects & Entities)
     - [x] Cap 7: Modelando Consistência (Aggregates)
     - [x] Cap 8: Modelando o Tempo (Domain Events)
 
 <span></spam>
 
-- [ ] **Parte III: Arquitetura**
-    - [ ] Cap 9 a 11: Padrões Arquiteturais e Comunicação
+- [ ] **Parte III: Design Arquitetural**
+  - [x] Cap 9: Comunicação com a Persistência (Repositories)
+  - [ ] Cap 10: Organizando a Lógica de Aplicação (Application Service)
+  - [ ] Cap 11: Evoluindo para CQRS (Command Query Responsibility Segregation)
 
 <span></spam>
 

@@ -1,5 +1,5 @@
-using ContosoStock.Domain.Fulfillment.ACL;
 using ContosoStock.Domain.Fulfillment.Models;
+using ContosoStock.Domain.Fulfillment.Ports.ACL;
 using ContosoStock.Domain.Fulfillment.Services;
 using ContosoStock.Domain.Fulfillment.ValueObjects;
 using NSubstitute;

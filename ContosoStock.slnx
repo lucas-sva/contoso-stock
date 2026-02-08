@@ -1,8 +1,10 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/ContosoStock.Domain/ContosoStock.Domain.csproj" />
+    <Project Path="src/ContosoStock.Infrastructure/ContosoStock.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/ContosoStock.Domain.Tests/ContosoStock.Domain.Tests.csproj" />
+    <Project Path="tests/ContosoStock.Infrastructure.Tests/ContosoStock.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

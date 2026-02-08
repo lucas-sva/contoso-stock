@@ -1,6 +1,4 @@
-using ContosoStock.Domain.Fulfillment.Models;
-
-namespace ContosoStock.Domain.Fulfillment.ACL;
+namespace ContosoStock.Domain.Fulfillment.Ports.ACL;
 
 /// <summary>
 /// ACL (Anticorruption Layer) para o Contexto de Vendas.

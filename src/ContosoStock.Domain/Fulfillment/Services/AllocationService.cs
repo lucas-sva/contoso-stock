@@ -1,5 +1,5 @@
-using ContosoStock.Domain.Fulfillment.ACL;
 using ContosoStock.Domain.Fulfillment.Models;
+using ContosoStock.Domain.Fulfillment.Ports.ACL;
 using ZipCode = ContosoStock.Domain.Fulfillment.ValueObjects.ZipCode;
 
 namespace ContosoStock.Domain.Fulfillment.Services;

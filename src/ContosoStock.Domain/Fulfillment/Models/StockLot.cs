@@ -16,10 +16,10 @@ public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime 
     public Guid Id { get; } = id;
     public Sku Sku { get; } = sku;
     public ZipCode ZipCode { get; } =  zipCode;
-    private int Quantity { get; set; } = quantity;
-    private DateTime ExpirationDate { get; } = expirationDate;
-    private bool IsFragile { get; } = isFragile;
-    private long Version { get; set; }
+    public int Quantity { get; set; } = quantity;
+    public DateTime ExpirationDate { get; } = expirationDate;
+    public bool IsFragile { get; } = isFragile;
+    public long Version { get; set; }
 
     public Result Reserve(int quantityRequested, bool handleFragile = false)
     {
