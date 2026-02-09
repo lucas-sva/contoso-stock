@@ -1,9 +1,12 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/ContosoStock.Api/ContosoStock.Api.csproj" />
+    <Project Path="src/ContosoStock.Application/ContosoStock.Application.csproj" />
     <Project Path="src/ContosoStock.Domain/ContosoStock.Domain.csproj" />
     <Project Path="src/ContosoStock.Infrastructure/ContosoStock.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/ContosoStock.Api.Tests/ContosoStock.Api.Tests.csproj" />
     <Project Path="tests/ContosoStock.Domain.Tests/ContosoStock.Domain.Tests.csproj" />
     <Project Path="tests/ContosoStock.Infrastructure.Tests/ContosoStock.Infrastructure.Tests.csproj" />
   </Folder>
