@@ -92,7 +92,7 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
 
 - [ ] **Parte III: Design Arquitetural**
   - [x] Cap 9: Comunicação com a Persistência (Repositories)
-  - [ ] Cap 10: Organizando a Lógica de Aplicação (Application Service)
+  - [x] Cap 10: Organizando a Lógica de Aplicação (Application Service)
   - [ ] Cap 11: Evoluindo para CQRS (Command Query Responsibility Segregation)
 
 <span></spam>
