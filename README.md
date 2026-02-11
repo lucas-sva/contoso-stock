@@ -23,13 +23,12 @@
 
 A **Contoso Stock** é uma plataforma de logística focada em resolver o desafio de *fulfillment* em cadeias de suprimentos complexas.
 
-Além de resolver o problema de negócio (alocação de estoque), este projeto serve como um **laboratório avançado de Engenharia de Software**, demonstrando a implementação prática de padrões táticos e estratégicos de Domain-Driven Design (DDD) em .NET moderno.
+Além de resolver o problema real de negócio (alocação de estoque), este projeto serve como um laboratório avançado de Engenharia de Software, demonstrando a implementação prática de padrões táticos e estratégicos segundo os ensinamentos da obra **Learning Domain-Driven Design**, de Vladik Khononov.
 
-### Por que este projeto existe?
- O projeto **Contoso Stock** (um sistema de logística B2B) é desenvolvido em paralelo ao estudo aprofundado do livro:
-**Learning Domain-Driven Design**, de Vladik Khononov.  
+<br />
 
-### Arquitetura e Design Técnico
+<!-- ARCHTECTURE -->
+## Arquitetura e Design Técnico
 O sistema segue uma **Clean Architecture** estrita, utilizando **CQRS Híbrido** para balancear segurança e performance:
 
 * **Domain-Driven Design:** O coração do software é isolado, rico em comportamentos e livre de dependências externas.

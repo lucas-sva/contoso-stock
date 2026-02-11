@@ -15,7 +15,7 @@ public class StockQueryTests(WebApplicationFactory<Program> factory) : IClassFix
     public async Task Deve_Ler_Dados_Via_Dapper_Que_Foram_Escritos_Via_EFCore()
     {
         // Arrange -> escrita via EF Core
-        var uniqueSku = $"CQRS-{Guid.NewGuid().ToString()[..8]}";
+        var uniqueSku = $"CQRS-{Guid.NewGuid().ToString()[..8]}".ToUpper();
         
         using (var scope = _factory.Services.CreateScope())
         {
