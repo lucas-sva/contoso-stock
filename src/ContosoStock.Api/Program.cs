@@ -1,5 +1,6 @@
 using ContosoStock.Application.Extensions;
 using ContosoStock.Infrastructure.Extensions;
+using ContosoStock.Infrastructure.Persistence.Contexts;
 using Microsoft.IdentityModel.Protocols.Configuration;
 using Scalar.AspNetCore;
 
@@ -26,6 +27,11 @@ if (app.Environment.IsDevelopment())
             .WithTheme(ScalarTheme.Moon)
             .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     });
+    
+    // Start PostgresDb
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ContosoStockDbContext>();
+    dbContext.Database.EnsureCreated();
 }
 
 app.UseHttpsRedirection();

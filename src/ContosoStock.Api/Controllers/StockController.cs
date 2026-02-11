@@ -1,3 +1,4 @@
+using ContosoStock.Application.Fulfillment.Queries.Contracts;
 using ContosoStock.Application.Fulfillment.UseCases.ReserveStock;
 using ContosoStock.Domain.Fulfillment.Models;
 using ContosoStock.Domain.Fulfillment.ValueObjects;
@@ -8,16 +9,16 @@ namespace ContosoStock.Api.Controllers;
 
 [ApiController]
 [Route("api/stock")]
-public class StockController(ReserveStockHandler handler, ContosoStockDbContext dbContext)
+public class StockController(ReserveStockHandler handler, ContosoStockDbContext dbContext, IGetStockBySkuQuery query)
     : ControllerBase
 {
     private readonly ReserveStockHandler _handler = handler;
     private readonly ContosoStockDbContext _dbContext = dbContext; // Seed
+    private readonly IGetStockBySkuQuery _query = query;
 
-    /// <summary> Reserva estoque para um pedido de venda. </summary>
-    /// <param name="command">Dados do pedido (SaleId, Sku, Qtd, CEP)</param>
-    /// <param name="cancellationToken"> Unit of Works</param>
-    /// <returns>Resultado da operação (200 OK ou 400 BadRequest)</returns>
+    /// <summary>
+    /// Reserva estoque para um pedido de venda usando EF Core.
+    /// </summary>
     [HttpPost("reserve")]
     [ProducesResponseType(typeof(ReserveStockResult), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ReserveStockResult), StatusCodes.Status400BadRequest)]
@@ -55,5 +56,15 @@ public class StockController(ReserveStockHandler handler, ContosoStockDbContext 
             Cep = zip,
             Quantidade = lot.Quantity
         });
+    }
+
+    /// <summary>
+    /// Consulta rápida de estoque usando Dapper (CQRS).
+    /// </summary>
+    [HttpGet("{sku}")]
+    public async Task<IActionResult> GetStock(string sku)
+    {
+        var result = await _query.ExecuteAsync(sku);
+        return Ok(result);
     }
 }

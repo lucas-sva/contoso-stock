@@ -1,30 +1,32 @@
 {
-  "name": ".NET 10",
-  "image": "mcr.microsoft.com/devcontainers/dotnet:10.0",
+  "name": "Contoso Stock Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/contoso-stock",
+
   "features": {
     "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-      "packages": "openssh-server,openjdk-25-jre"
+      "packages": "openssh-server,openjdk-25-jre,iputils-ping,dnsutils"
     }
   },
+
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "terminal.integrated.profiles.linux": {
-          "bash": {
-          "path": "/bin/bash",
-          "icon": "terminal-bash"
-          }
-        }
+        "terminal.integrated.defaultProfile.linux": "bash"
       },
       "extensions": [
         "ms-dotnettools.csdevkit",
         "ms-python.python",
         "mhutchie.git-graph",
-        "nmartin.nsubstitute-complete"
+        "nmartin.nsubstitute-complete",
+        "tamasfe.even-better-toml"
       ]
     }
   },
+
+  // Executa o restore ao terminar de criar
   "postCreateCommand": "dotnet restore",
+
   "remoteUser": "vscode"
 }
