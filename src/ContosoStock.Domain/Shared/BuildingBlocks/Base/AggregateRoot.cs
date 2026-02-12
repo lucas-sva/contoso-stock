@@ -4,11 +4,30 @@ namespace ContosoStock.Domain.Shared.BuildingBlocks.Base;
 
 public abstract class AggregateRoot
 {
-    private readonly List<IDomainEvent> _domainEvents = [];
+    private readonly List<IDomainEvent> _changes = [];
     
-    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public long Version { get; protected set; } = -1;
     
-    protected void RaiseDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
+    public IEnumerable<IDomainEvent> GetUncommittedChanges() => _changes.AsReadOnly();
     
-    public void ClearDomainEvents() => _domainEvents.Clear();
+    public void MarkChangesAsCommitted() => _changes.Clear();
+    
+    protected void RaiseEvent(IDomainEvent @event) => ApplyEvent(@event, true);
+    
+    private void ApplyEvent(IDomainEvent @event, bool isNew)
+    {
+        ((dynamic)this).Apply((dynamic)@event);
+
+        if (isNew)
+            _changes.Add(@event);
+    }
+    
+    public void LoadFromHistory(IEnumerable<IDomainEvent> history)
+    {
+        foreach (var @event in history)
+        {
+            ApplyEvent(@event, false);
+            Version++;
+        }
+    }
 }

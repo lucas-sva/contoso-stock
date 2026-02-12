@@ -5,8 +5,8 @@ namespace ContosoStock.Domain.Fulfillment.Ports.Contracts;
 
 public interface IStockLotRepository
 {
-    Task AddAsync(StockLot lot);
-    Task UpdateAsync(StockLot lot);
-    Task<StockLot?> GetByIdAsync(Guid id);
-    Task<IEnumerable<StockLot>> GetBySkuAsync(Sku sku);
+    Task AddAsync(StockLot lot,  CancellationToken cancellationToken = default);
+    Task UpdateAsync(StockLot lot,  CancellationToken cancellationToken = default);
+    Task<StockLot?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<IEnumerable<StockLot>> GetBySkuAsync(Sku sku, CancellationToken cancellationToken = default);
 }

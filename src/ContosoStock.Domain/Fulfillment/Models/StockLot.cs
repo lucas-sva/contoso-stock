@@ -1,6 +1,5 @@
 using ContosoStock.Domain.Fulfillment.Events;
 using ContosoStock.Domain.Fulfillment.ValueObjects;
-using ContosoStock.Domain.Shared;
 using ContosoStock.Domain.Shared.BuildingBlocks.Base;
 using ContosoStock.Domain.Shared.Helpers;
 
@@ -8,22 +7,36 @@ namespace ContosoStock.Domain.Fulfillment.Models;
 
 /// <summary>
 /// Aggregate Root que representa um lote físico de produtos.
-/// Garante a invariante de que o saldo nunca seja negativo e que 
-/// lotes vencidos não sejam reservados.
+/// Garante as invariantes.
+/// Atualizado para Event sourcing
 /// </summary>
-public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime expirationDate, bool isFragile) : AggregateRoot
+public class StockLot : AggregateRoot
 {
-    public Guid Id { get; } = id;
-    public Sku Sku { get; } = sku;
-    public ZipCode ZipCode { get; } =  zipCode;
-    public int Quantity { get; set; } = quantity;
-    public DateTime ExpirationDate { get; } = expirationDate;
-    public bool IsFragile { get; } = isFragile;
-    public long Version { get; set; }
+    public Guid Id { get; private set; }
+    public Sku? Sku { get; private set; }
+    public ZipCode? ZipCode { get; private set; }
+    public int Quantity { get; private set; }
+    public DateTime ExpirationDate { get; private set; }
+    public bool IsFragile { get; private set; }
+    
+    public StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime expirationDate, bool isFragile = false)
+    {
+        RaiseEvent(new StockLotCreatedEvent(
+            id, 
+            sku, 
+            zipCode, 
+            quantity, 
+            expirationDate, 
+            isFragile));
+    }
 
+    public StockLot()
+    {
+        
+    }
     public Result Reserve(int quantityRequested, bool handleFragile = false)
     {
-        if (ExpirationDate <= DateTime.Now)
+        if (ExpirationDate <= DateTime.UtcNow)
             return Result.Failure("Lote vencido");
         
         if (IsFragile && !handleFragile)
@@ -32,17 +45,39 @@ public class StockLot(Guid id, Sku sku, ZipCode zipCode, int quantity, DateTime 
         if (Quantity < quantityRequested)
             return Result.Failure("Saldo insuficiente");
 
-        Quantity -= quantityRequested;
         Version++;
-        
-        RaiseDomainEvent(new StockReservedEvent(Id, Sku, quantityRequested));
-        
+
+        if (Sku != null)
+            RaiseEvent(new StockReservedEvent(Id, quantityRequested));
+
         return Result.Success();
     }
-
+    
     public void Release(int quantityToRelease)
     {
-        Quantity += quantityToRelease;
-        Version++;
+        if (quantityToRelease <= 0) return;
+        
+        RaiseEvent(new StockReleasedEvent(Id, quantityToRelease));
+    }
+    
+    // -------------------------------------------------------------------------------
+    public void Apply(StockLotCreatedEvent e)
+    {
+        Id = e.LotId;
+        Sku = new Sku(e.Sku.ToString());
+        ZipCode = new ZipCode(e.ZipCode.ToString());
+        Quantity = e.Quantity;
+        ExpirationDate = e.ExpirationDate;
+        IsFragile = e.IsFragile;
+    }
+
+    public void Apply(StockReservedEvent e)
+    {
+        Quantity -= e.Quantity;
+    }
+
+    public void Apply(StockReleasedEvent e)
+    {
+        Quantity += e.Quantity;
     }
 }

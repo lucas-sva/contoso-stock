@@ -29,16 +29,19 @@ Além de resolver o problema real de negócio (alocação de estoque), este proj
 
 <!-- ARCHTECTURE -->
 ## Arquitetura e Design Técnico
-O sistema segue uma **Clean Architecture** estrita, utilizando **CQRS Híbrido** para balancear segurança e performance:
+O sistema segue uma **Clean Architecture** estrita, evoluindo para uma **Event-Driven Architecture** na fase atual:
+
+<spam></spam>
 
 * **Domain-Driven Design:** O coração do software é isolado, rico em comportamentos e livre de dependências externas.
 
+<spam></spam>
 
+* **Event Sourcing & CQRS:**
+    * **Write Stack (Event Store):** O estado dos Agregados é persistido como uma sequência de eventos imutáveis (JSONB no PostgreSQL), garantindo auditoria e consistência.
+    * **Read Stack (Projections):** Utiliza **Dapper** para consultar tabelas de leitura otimizadas, que são atualizadas (projetadas) a partir dos eventos de domínio.
 
-* **CQRS:**
-  * **Write Stack (Comandos):** Utiliza **EF Core** e **Repositories** para garantir consistência transacional e validação de invariantes de negócio.
-  * **Read Stack (Consultas):** Utiliza **Dapper** e **SQL Puro** (PostgreSQL) para leituras de alta performance, projetando DTOs diretamente para a API.
-
+<spam></spam>
 
 * **Testes Automatizados:** Cobertura de Testes Unitários (regras de domínio) e Testes de Integração (fluxo completo API -> Banco).
 
@@ -145,8 +148,9 @@ O projeto será evoluído em ciclos, seguindo os capítulos da obra de Vladik Kh
 <span></spam>
 
 - [ ] **Parte IV: Contexto e Dados**
-    - [ ] Cap 12: Event Sourcing
-    - [ ] Cap 13: Data Mesh & Microservices
+    - [x] Cap 12: Event Sourcing (Persistindo Histórico em vez de Estado)
+    - [ ] Cap 13: Evoluindo para Microsserviços (Partitioning)
+    - [ ] Cap 14: Data Mesh (Analytics e Projeções)
   
 Veja as [issues](https://github.com/lucas-sva/contoso-stock/issues) para uma lista completa de funcionalidades propostas.
 

@@ -1,13 +1,13 @@
 using ContosoStock.Application.Extensions;
 using ContosoStock.Infrastructure.Extensions;
 using ContosoStock.Infrastructure.Persistence.Contexts;
-using Microsoft.IdentityModel.Protocols.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidConfigurationException();
+                       throw new InvalidOperationException();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -31,7 +31,14 @@ if (app.Environment.IsDevelopment())
     // Start PostgresDb
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ContosoStockDbContext>();
-    dbContext.Database.EnsureCreated();
+    try
+    {
+        dbContext.Database.Migrate();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Erro ao aplicar migrations: {e.Message}");
+    }
 }
 
 app.UseHttpsRedirection();

@@ -24,4 +24,8 @@
     <ProjectReference Include="..\..\src\ContosoStock.Domain\ContosoStock.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Repositories\" />
+  </ItemGroup>
+
 </Project>

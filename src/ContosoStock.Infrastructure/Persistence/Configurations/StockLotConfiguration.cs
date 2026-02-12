@@ -34,8 +34,5 @@ public class StockLotConfiguration : IEntityTypeConfiguration<StockLot>
         // Mapeando o Version para a consistência do banco
         builder.Property(x => x.Version)
             .IsConcurrencyToken();
-        
-        // Ignora a lista de eventos
-        builder.Ignore(x => x.DomainEvents);
     }
 }

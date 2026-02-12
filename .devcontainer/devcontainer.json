@@ -7,6 +7,11 @@
   "features": {
     "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
       "packages": "openssh-server,openjdk-25-jre,iputils-ping,dnsutils"
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "latest",
+      "enableNonRootDocker": "true",
+      "moby": "true"
     }
   },
 
