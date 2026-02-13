@@ -1,7 +1,7 @@
 using ContosoStock.Domain.Fulfillment.Models;
 using ContosoStock.Domain.Fulfillment.ValueObjects;
 
-namespace ContosoStock.Domain.Fulfillment.Ports.Contracts;
+namespace ContosoStock.Domain.Fulfillment.Repositories;
 
 public interface IStockLotRepository
 {

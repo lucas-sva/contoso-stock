@@ -4,9 +4,10 @@ namespace ContosoStock.Domain.Shared.BuildingBlocks.Base;
 
 public abstract class AggregateRoot
 {
+    public Guid Id { get; protected set; }
     private readonly List<IDomainEvent> _changes = [];
     
-    public long Version { get; protected set; } = -1;
+    public long Version { get; private set; } = -1;
     
     public IEnumerable<IDomainEvent> GetUncommittedChanges() => _changes.AsReadOnly();
     

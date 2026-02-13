@@ -9,5 +9,4 @@ public class UnitOfWork(ContosoStockDbContext dbContext) : IUnitOfWork
 
     public async Task CommitAsync(CancellationToken cancellationToken = default) 
         => await _dbContext.SaveChangesAsync(cancellationToken);
-    
 }

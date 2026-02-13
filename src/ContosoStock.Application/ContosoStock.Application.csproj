@@ -11,7 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="14.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Fulfillment\UseCases\ReserveStock\ReserveStockResult.cs" />
+    <Compile Remove="Fulfillment\Queries\Contracts\IGetStockBySkuQuery.cs" />
   </ItemGroup>
 
   <PropertyGroup>

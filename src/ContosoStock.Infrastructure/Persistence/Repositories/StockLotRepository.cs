@@ -1,6 +1,6 @@
 using ContosoStock.Application.Common.Contracts;
 using ContosoStock.Domain.Fulfillment.Models;
-using ContosoStock.Domain.Fulfillment.Ports.Contracts;
+using ContosoStock.Domain.Fulfillment.Repositories;
 using ContosoStock.Domain.Fulfillment.ValueObjects;
 using ContosoStock.Domain.Shared.BuildingBlocks.Contracts;
 using ContosoStock.Infrastructure.Persistence.Contexts;
@@ -22,7 +22,7 @@ public class StockLotRepository(ContosoStockDbContext context, IEventStore event
         await _eventStore.AppendEventsAsync(
             lot.Id, 
             lot.GetUncommittedChanges(), 
-            lot.Version, 
+            lot.Version,
             cancellationToken);
         
         _dbContext.StockLots.Add(lot);

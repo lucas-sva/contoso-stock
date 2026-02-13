@@ -1,5 +1,5 @@
+using ContosoStock.Domain.Fulfillment.Gateways;
 using ContosoStock.Domain.Fulfillment.Models;
-using ContosoStock.Domain.Fulfillment.Ports.ACL;
 using ZipCode = ContosoStock.Domain.Fulfillment.ValueObjects.ZipCode;
 
 namespace ContosoStock.Domain.Fulfillment.Services;
@@ -8,33 +8,30 @@ namespace ContosoStock.Domain.Fulfillment.Services;
 /// Serviço de Domínio responsável por coordenar o processo de alocação de pedidos,
 /// interagindo com múltiplos Centros de Distribuição e validando a reserva nos lotes.
 /// </summary>
-public class AllocationService(ISalesIntegration salesIntegration)
+public class AllocationService(ISalesGateway salesIntegration)
 {
-    private readonly ISalesIntegration _salesIntegration = salesIntegration;
-
-    public static string Allocate(IEnumerable<DistributionCenter> cds, ZipCode zipCode)
+    /// <summary>
+    /// Executa a Reserva de Alocação Otimizada (RAO)
+    /// </summary>
+    public StockLot? ExecuteRao(
+        ZipCode destinationZip, 
+        IEnumerable<DistributionCenter> availableCds, 
+        IEnumerable<StockLot> availableLots, 
+        int requiredQuantity)
     {
-        var selectCd = cds.FirstOrDefault(cd => cd.IsActive);
-        return selectCd?.Id ?? "CD-MATRIZ";
-    }
+        var eligibleCds = availableCds
+            .Where(cd => cd.CanFulfill(destinationZip))
+            .Select(cd => cd.Id)
+            .ToHashSet();
 
-    public void ProcessOrderFulfillment(string saleId, StockLot lot, IEnumerable<DistributionCenter> cds, ZipCode zipCode, int quantity)
-    {
-        var targetCd = Allocate(cds, zipCode);
-        
-        var reserveResult = lot.Reserve(quantity);
-        
-        if(reserveResult.IsFailure)
-            throw new InvalidOperationException(reserveResult.Error);
-        
-        var isAuthorized = _salesIntegration.RequestStockReservation(saleId, lot.Id, targetCd, quantity);
+        if (eligibleCds.Count == 0)
+            return null;
 
-        if (!isAuthorized)
-        {
-            lot.Release(quantity);
-            throw new InvalidOperationException($"Venda negada para o pedido {saleId}. Estoque estornado.");
-        }
-        
-        Console.WriteLine($"[log] Alocação e Reserva confirmadas com sucesso: Pedido {saleId}");
+        return availableLots
+            .Where(lot => eligibleCds.Contains(lot.DistributionCenterId)) // Está num CD correto?
+            .Where(lot => lot.Quantity >= requiredQuantity)               // Tem saldo?
+            .Where(lot => lot.ExpirationDate > DateTime.UtcNow)           // Não venceu?
+            .OrderBy(lot => lot.ExpirationDate)                           // FEFO: Vence primeiro sai primeiro
+            .FirstOrDefault();                                            // Pega o melhor
     }
 }

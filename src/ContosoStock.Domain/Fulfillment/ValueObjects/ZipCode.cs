@@ -1,17 +1,27 @@
 using System.Text.RegularExpressions;
+using ContosoStock.Domain.Shared.Helpers;
 
 namespace ContosoStock.Domain.Fulfillment.ValueObjects;
 
 public partial record ZipCode
 {
-    private string Value { get; } = null!;
+    public string Value { get; }
 
-    public ZipCode(string value)
+    private ZipCode(string value)
     {
         if(!IsValid(value))
             throw new ArgumentException($"Cep com formato inválido: {value}");
         
         Value = value;
+    }
+    
+    public static Result<ZipCode> Create(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Result.Failure<ZipCode>("O CEP é obrigatório.");
+
+        return !IsValid(value) ? Result.Failure<ZipCode>("CEP inválido. Formato esperado: 00000-000") : 
+            Result.Success(new ZipCode(value));
     }
     
     public override string ToString() => Value;

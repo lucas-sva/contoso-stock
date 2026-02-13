@@ -1,18 +1,17 @@
 using System.Data;
 using ContosoStock.Application.Fulfillment.Queries.Contracts;
-using ContosoStock.Application.Fulfillment.Queries.Dtos;
+using ContosoStock.Application.Fulfillment.Queries.GetStockBySku;
 using Dapper;
 
 namespace ContosoStock.Infrastructure.Persistence.Queries;
 
-public class GetStockBySkuQuery(IDbConnection connection) : IGetStockBySkuQuery
+public class StockQueries(IDbConnection connection) : IStockQueries
 {
-    private readonly IDbConnection _connection = connection;
-
-    public async Task<IEnumerable<StockListItem>> ExecuteAsync(string sku)
+    public async Task<IEnumerable<StockListItem>> GetBySkuAsync(string sku)
     {
         const string sql = """
                            SELECT 
+                                "Id" as "LotId", -- Mapeando para o DTO novo
                                 "Sku", 
                                 "Quantity", 
                                 "ZipCode", 
@@ -21,6 +20,6 @@ public class GetStockBySkuQuery(IDbConnection connection) : IGetStockBySkuQuery
                            WHERE "Sku" = @Sku
                            """;
 
-        return await _connection.QueryAsync<StockListItem>(sql, new { Sku = sku });
+        return await connection.QueryAsync<StockListItem>(sql, new { Sku = sku });
     }
 }

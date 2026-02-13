@@ -15,11 +15,9 @@ public class StockLotConfiguration : IEntityTypeConfiguration<StockLot>
         builder.HasIndex(x => x.Sku);
         
         builder.Property(x => x.Sku)
-            .HasConversion(sku => sku.ToString(), sku => new Sku(sku))
-            .IsRequired();
-        
-        builder.Property(x => x.ZipCode)
-            .HasConversion(zip => zip.ToString(), zip => new ZipCode(zip))
+            .HasConversion(
+                sku => sku!.Value,
+                value => Sku.Create(value).Value)
             .IsRequired();
         
         builder.Property(x => x.Quantity)

@@ -1,16 +1,24 @@
+using ContosoStock.Domain.Shared.Helpers;
+
 namespace ContosoStock.Domain.Fulfillment.ValueObjects;
 
 public record Sku
 {
-    private string Value { get; } = null!;
+    public string Value { get; }
 
-    public Sku(string value)
+    private Sku(string value)
     {
-        if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
-            throw new ArgumentException("Sku inválido");
-        
-        Value = value.ToUpper();
+        Value = value;
     }
     
+    public static Result<Sku> Create(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return Result.Failure<Sku>("O SKU não pode ser vazio.");
+        
+        return value.Length < 5 ? Result.Failure<Sku>("SKU inválido. Deve ter pelo menos 5 caracteres.") :
+            Result.Success(new Sku(value.ToUpper()));
+    }
+
     public override string ToString() => Value;
 }
